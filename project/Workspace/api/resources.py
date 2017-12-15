@@ -1,9 +1,9 @@
 from tastypie.resources import ModelResource
-from api.models import Voto
+from api.models import vote
 from tastypie.authorization import Authorization
 
-class VotoResource(ModelResource):
+class VoteResource(ModelResource):
     class Meta:
-        queryset = Voto.objects.all()
-        resource_name = 'voto'
+        queryset = vote.objects.all()
+        resource_name = 'vote'
         authorization = Authorization()
