@@ -15,7 +15,7 @@ from django.db import models
 from fernet_fields import EncryptedCharField
 
 class Ca(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
 
     class Meta:
@@ -26,7 +26,7 @@ class Ca(models.Model):
           return self.name
 
 class Census(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     postalcode = models.IntegerField(db_column='postalCode', blank=True, null=True)  # Field name made lowercase.
     ca = models.ForeignKey(Ca)
@@ -47,7 +47,7 @@ class Cookie(models.Model):
         db_table = 'cookie'
 
 class OptionPerVote(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     vote = models.ForeignKey('Vote')
     question_option = models.ForeignKey('QuestionOption')
 
@@ -57,7 +57,7 @@ class OptionPerVote(models.Model):
 
 
 class Poll(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=150, blank=True, null=True)
     startdate = models.DateField(db_column='startDate')  # Field name made lowercase.
@@ -72,7 +72,7 @@ class Poll(models.Model):
         return self.title
     
 class Question(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=150, blank=True, null=True)
     optional = models.IntegerField()
@@ -85,7 +85,7 @@ class Question(models.Model):
 
 
 class QuestionOption(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     description = models.CharField(max_length=150, blank=True, null=True)
     question = models.ForeignKey(Question)
 
@@ -95,7 +95,7 @@ class QuestionOption(models.Model):
 
 
 class Role(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=10)
 
     class Meta:
@@ -107,7 +107,7 @@ class Role(models.Model):
 
 
 class User(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=200)
     genre = models.CharField(max_length=1)
@@ -124,7 +124,7 @@ class User(models.Model):
           return self.name
 
 class UserAccount(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     username = models.CharField(unique=True, max_length=50)
     password = models.CharField(max_length=50)
     email = models.CharField(max_length=100)
@@ -138,7 +138,7 @@ class UserAccount(models.Model):
         return self.username
 
 class UserAccountPerCensus(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     census = models.ForeignKey(Census)
     user_account = models.ForeignKey(UserAccount)
 
@@ -148,7 +148,7 @@ class UserAccountPerCensus(models.Model):
 
 
 class Vote(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     token = models.CharField(max_length=150)
     vote_type = models.ForeignKey('VoteType')
     vote_date = models.DateField()
@@ -162,7 +162,7 @@ class Vote(models.Model):
 
 
 class VoteType(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=10)
 
     class Meta:
