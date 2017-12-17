@@ -51,6 +51,23 @@ def insertVoteTelegram(request, id_poll, id_user, id_questionOption):
         
     html = "<html><body>Voto telegram insertado con exito</body></html>"
     return HttpResponse(html)
-=======
-                
+
+def checkDate(id_poll, Vote):
+    
+    poll = Poll.objects.create(id=id_poll).get()
+    checkdate = False
+    
+    startdate = poll.startdate
+    enddate = poll.enddate
+    
+    datevote = Vote.vote_date
+    
+    
+    if datevote > startdate and datevote < enddate:
+        checkdate = True 
+        
+    return checkdate
+        
+        
+           
    
