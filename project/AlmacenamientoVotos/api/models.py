@@ -7,12 +7,10 @@
 #
 # Also note: You'll have to insert the output of 'django-admin sqlcustom [app_label]'
 # into your database.
-
-#encoding:utf-8
 from __future__ import unicode_literals
 
 from django.db import models
-from fernet_fields import EncryptedCharField
+from fernet_fields.fields import EncryptedTextField
 
 class Ca(models.Model):
     id = models.AutoField(primary_key=True)
@@ -23,7 +21,7 @@ class Ca(models.Model):
         db_table = 'ca'
         
     def __unicode__(self):
-          return self.name
+        return self.name
 
 class Census(models.Model):
     id = models.AutoField(primary_key=True)
@@ -55,7 +53,6 @@ class OptionPerVote(models.Model):
         managed = False
         db_table = 'option_per_vote'
 
-
 class Poll(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
@@ -83,7 +80,6 @@ class Question(models.Model):
         managed = False
         db_table = 'question'
 
-
 class QuestionOption(models.Model):
     id = models.AutoField(primary_key=True)
     description = models.CharField(max_length=150, blank=True, null=True)
@@ -92,7 +88,6 @@ class QuestionOption(models.Model):
     class Meta:
         managed = False
         db_table = 'question_option'
-
 
 class Role(models.Model):
     id = models.AutoField(primary_key=True)
@@ -104,8 +99,7 @@ class Role(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
+    
 class User(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
@@ -121,7 +115,7 @@ class User(models.Model):
         db_table = 'user'
 
     def __unicode__(self):
-          return self.name
+            return self.name
 
 class UserAccount(models.Model):
     id = models.AutoField(primary_key=True)
@@ -146,12 +140,11 @@ class UserAccountPerCensus(models.Model):
         managed = False
         db_table = 'user_account_per_census'
 
-
 class Vote(models.Model):
     id = models.AutoField(primary_key=True)
-    token = models.CharField(max_length=150)
+    token = EncryptedTextField()
     vote_type = models.ForeignKey('VoteType')
-    vote_date = models.DateField()
+    vote_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         managed = False
@@ -159,7 +152,6 @@ class Vote(models.Model):
         
     def __unicode__(self):
         return self.token
-
 
 class VoteType(models.Model):
     id = models.AutoField(primary_key=True)
@@ -171,3 +163,5 @@ class VoteType(models.Model):
 
     def __unicode__(self):
         return self.name
+
+

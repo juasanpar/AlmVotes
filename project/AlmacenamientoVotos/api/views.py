@@ -15,6 +15,7 @@ def insertVoteWeb(request, id_poll, id_user, id_questionOption):
         voto = Vote.objects.create(token = id_user, vote_type = VoteType.objects.filter(id = 1).get())
         questionOp = QuestionOption.objects.filter(id = decision).get()
         op = OptionPerVote.objects.create(vote = voto, question_option = questionOp)
+
         
         print op.id
         
@@ -50,3 +51,6 @@ def insertVoteTelegram(request, id_poll, id_user, id_questionOption):
         
     html = "<html><body>Voto telegram insertado con exito</body></html>"
     return HttpResponse(html)
+=======
+                
+   
