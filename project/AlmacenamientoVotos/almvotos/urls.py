@@ -1,10 +1,10 @@
 from django.conf.urls import url, include
 from django.contrib import admin
-from api.resources import VotoResource
+from api.resources import VoteResource
 
-voto_resource = VotoResource()
+vote_resource = VoteResource()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(voto_resource.urls)),
+    url(r'^api/', include(vote_resource.urls)),
 ]
