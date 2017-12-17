@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from models import *
 from django.http import HttpResponse, HttpResponseRedirect
+import time
 
 # Create your views here.
 def insertVoteWeb(request, id_poll, id_user, id_questionOption):
@@ -54,13 +55,13 @@ def insertVoteTelegram(request, id_poll, id_user, id_questionOption):
 
 def checkDate(id_poll, Vote):
     
-    poll = Poll.objects.create(id=id_poll).get()
+    poll = Poll.objects.filter(id=id_poll).get()
     checkdate = False
     
     startdate = poll.startdate
     enddate = poll.enddate
     
-    datevote = Vote.vote_date
+    datevote = time.strftime("%d/%m/%Y")
     
     
     if datevote > startdate and datevote < enddate:
