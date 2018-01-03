@@ -10,25 +10,31 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from fernet_fields.fields import EncryptedTextField
 
 class Ca(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
 
     class Meta:
         managed = False
         db_table = 'ca'
-
+        
+    def __unicode__(self):
+        return self.name
 
 class Census(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     postalcode = models.IntegerField(db_column='postalCode', blank=True, null=True)  # Field name made lowercase.
-    estado = models.CharField(max_length=7)
     ca = models.ForeignKey(Ca)
 
     class Meta:
         managed = False
         db_table = 'census'
 
+    def __unicode__(self):
+        return self.title
 
 class Cookie(models.Model):
     number_id = models.CharField(primary_key=True, max_length=40)
@@ -39,6 +45,7 @@ class Cookie(models.Model):
         db_table = 'cookie'
 
 class OptionPerVote(models.Model):
+    id = models.AutoField(primary_key=True)
     vote = models.ForeignKey('Vote')
     question_option = models.ForeignKey('QuestionOption')
 
@@ -46,22 +53,23 @@ class OptionPerVote(models.Model):
         managed = False
         db_table = 'option_per_vote'
 
-
 class Poll(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=150, blank=True, null=True)
     startdate = models.DateField(db_column='startDate')  # Field name made lowercase.
     enddate = models.DateField(db_column='endDate')  # Field name made lowercase.
     census = models.ForeignKey(Census)
-    participantes_admitidos = models.IntegerField()
-    votos_actuales = models.IntegerField()
 
     class Meta:
         managed = False
         db_table = 'poll'
 
-
+    def __unicode__(self):
+        return self.title
+    
 class Question(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=150, blank=True, null=True)
     optional = models.IntegerField()
@@ -72,8 +80,8 @@ class Question(models.Model):
         managed = False
         db_table = 'question'
 
-
 class QuestionOption(models.Model):
+    id = models.AutoField(primary_key=True)
     description = models.CharField(max_length=150, blank=True, null=True)
     question = models.ForeignKey(Question)
 
@@ -81,16 +89,19 @@ class QuestionOption(models.Model):
         managed = False
         db_table = 'question_option'
 
-
 class Role(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=10)
 
     class Meta:
         managed = False
         db_table = 'role'
 
-
+    def __unicode__(self):
+        return self.name
+    
 class User(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=200)
     genre = models.CharField(max_length=1)
@@ -103,8 +114,11 @@ class User(models.Model):
         managed = False
         db_table = 'user'
 
+    def __unicode__(self):
+            return self.name
 
 class UserAccount(models.Model):
+    id = models.AutoField(primary_key=True)
     username = models.CharField(unique=True, max_length=50)
     password = models.CharField(max_length=50)
     email = models.CharField(max_length=100)
@@ -113,9 +127,12 @@ class UserAccount(models.Model):
     class Meta:
         managed = False
         db_table = 'user_account'
-
+        
+    def __unicode__(self):
+        return self.username
 
 class UserAccountPerCensus(models.Model):
+    id = models.AutoField(primary_key=True)
     census = models.ForeignKey(Census)
     user_account = models.ForeignKey(UserAccount)
 
@@ -123,20 +140,28 @@ class UserAccountPerCensus(models.Model):
         managed = False
         db_table = 'user_account_per_census'
 
-
 class Vote(models.Model):
-    token = models.CharField(max_length=150)
+    id = models.AutoField(primary_key=True)
+    token = EncryptedTextField()
     vote_type = models.ForeignKey('VoteType')
-    vote_date = models.DateField()
+    vote_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         managed = False
         db_table = 'vote'
-
+        
+    def __unicode__(self):
+        return self.token
 
 class VoteType(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=10)
 
     class Meta:
         managed = False
         db_table = 'vote_type'
+
+    def __unicode__(self):
+        return self.name
+
+
