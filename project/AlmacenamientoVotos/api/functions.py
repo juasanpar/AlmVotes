@@ -1,7 +1,5 @@
-from django.shortcuts import render, get_object_or_404
 from models import *
 from exceptions import PollDateException, NoQuestionOptionException, NoUserException
-from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 import time
 import datetime
@@ -9,17 +7,62 @@ import rsa
 from rsa import key, common
 
 # Create your views here.
-def insertVoteWeb(request, id_poll, id_user, id_questionOption):
+def insertVoteWeb(id_poll, id_user, id_questionOption):
     
     checkDate(id_poll)
     checkUser(id_user)
     checkQuestionOp(id_questionOption)
     
     questionOptions= id_questionOption.split("&");
-    username = ""
-    (pub_key, priv_key) = key.newkeys(256)
-    crypto = rsa.encrypt(username, pub_key)
-    voto = Vote.objects.create(token = crypto, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
+    username = id_user
+    voto = Vote.objects.create(token = username, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
+    poll = Poll.objects.get(id = id_poll)
+    poll.votos_actuales += 1
+    poll.save()
+    
+    for option in questionOptions:
+        res = option.split("-")
+        decision = res[0]
+        priority = res[1]
+
+        questionOp = QuestionOption.objects.filter(id = decision).get()
+        op = OptionPerVote.objects.create(vote = voto, question_option = questionOp)
+                        
+    return True
+
+def insertVoteSlack(id_poll, id_user, id_questionOption):
+    
+    checkDate(id_poll)
+    checkUser(id_user)
+    checkQuestionOp(id_questionOption)
+    
+    questionOptions= id_questionOption.split("&");
+    
+    username = id_user
+    voto = Vote.objects.create(token = username, vote_type = VoteType.objects.filter(id = 2).get(), vote_date = time.strftime("%Y-%m-%d"))
+    poll = Poll.objects.get(id = id_poll)
+    poll.votos_actuales += 1
+    poll.save()
+    
+    for option in questionOptions:
+        res = option.split("-")
+        decision = res[0]
+        priority = res[1]
+
+        questionOp = QuestionOption.objects.filter(id = decision).get()
+        op = OptionPerVote.objects.create(vote = voto, question_option = questionOp)
+                        
+    return "Voto insertado con exito"
+
+def insertVoteTelegram(id_poll, id_user, id_questionOption):
+    
+    checkDate(id_poll)
+    checkUser(id_user)
+    checkQuestionOp(id_questionOption)
+    
+    questionOptions= id_questionOption.split("&");
+    username = id_user
+    voto = Vote.objects.create(token = username, vote_type = VoteType.objects.filter(id = 3).get(), vote_date = time.strftime("%Y-%m-%d"))
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
@@ -32,61 +75,7 @@ def insertVoteWeb(request, id_poll, id_user, id_questionOption):
         questionOp = QuestionOption.objects.filter(id = decision).get()
         op = OptionPerVote.objects.create(vote = voto, question_option = questionOp)
                     
-    html = "<html><body>Voto de web insertado con exito</body></html>"
-    return HttpResponse(html)
-
-def insertVoteSlack(request, id_poll, id_user, id_questionOption):
-    
-    checkDate(id_poll)
-    checkUser(id_user)
-    checkQuestionOp(id_questionOption)
-    
-    questionOptions= id_questionOption.split("&");
-    
-    username = ""
-    (pub_key, priv_key) = key.newkeys(256)
-    crypto = rsa.encrypt(username, pub_key)
-    voto = Vote.objects.create(token = crypto, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
-    poll = Poll.objects.get(id = id_poll)
-    poll.votos_actuales += 1
-    poll.save()
-    
-    for option in questionOptions:
-        res = option.split("-")
-        decision = res[0]
-        priority = res[1]
-
-        questionOp = QuestionOption.objects.filter(id = decision).get()
-        op = OptionPerVote.objects.create(vote = voto, question_option = questionOp)
-                    
-    html = "<html><body>Voto de slack insertado con exito</body></html>"
-    return HttpResponse(html)
-
-def insertVoteTelegram(request, id_poll, id_user, id_questionOption):
-    
-    checkDate(id_poll)
-    checkUser(id_user)
-    checkQuestionOp(id_questionOption)
-    
-    questionOptions= id_questionOption.split("&");
-    username = ""
-    (pub_key, priv_key) = key.newkeys(256)
-    crypto = rsa.encrypt(username, pub_key)
-    voto = Vote.objects.create(token = crypto, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
-    poll = Poll.objects.get(id = id_poll)
-    poll.votos_actuales += 1
-    poll.save()
-    
-    for option in questionOptions:
-        res = option.split("-")
-        decision = res[0]
-        priority = res[1]
-
-        questionOp = QuestionOption.objects.filter(id = decision).get()
-        op = OptionPerVote.objects.create(vote = voto, question_option = questionOp)
-                    
-    html = "<html><body>Voto de telegram insertado con exito</body></html>"
-    return HttpResponse(html)
+    return "Voto insertado con exito"
 
 def checkDate(id_poll):
     
