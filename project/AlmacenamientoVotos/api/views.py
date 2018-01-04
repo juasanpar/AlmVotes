@@ -5,6 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 import time
 import datetime
+import rsa
+from rsa import key, common
 
 # Create your views here.
 def insertVoteWeb(request, id_poll, id_user, id_questionOption):
@@ -14,7 +16,10 @@ def insertVoteWeb(request, id_poll, id_user, id_questionOption):
     checkQuestionOp(id_questionOption)
     
     questionOptions= id_questionOption.split("&");
-    voto = Vote.objects.create(token = id_user, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
+    username = ""
+    (pub_key, priv_key) = key.newkeys(256)
+    crypto = rsa.encrypt(username, pub_key)
+    voto = Vote.objects.create(token = crypto, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
@@ -37,7 +42,11 @@ def insertVoteSlack(request, id_poll, id_user, id_questionOption):
     checkQuestionOp(id_questionOption)
     
     questionOptions= id_questionOption.split("&");
-    voto = Vote.objects.create(token = id_user, vote_type = VoteType.objects.filter(id = 2).get(), vote_date = time.strftime("%Y-%m-%d"))
+    
+   username = ""
+    (pub_key, priv_key) = key.newkeys(256)
+    crypto = rsa.encrypt(username, pub_key)
+    voto = Vote.objects.create(token = crypto, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
@@ -60,7 +69,10 @@ def insertVoteTelegram(request, id_poll, id_user, id_questionOption):
     checkQuestionOp(id_questionOption)
     
     questionOptions= id_questionOption.split("&");
-    voto = Vote.objects.create(token = id_user, vote_type = VoteType.objects.filter(id = 3).get(), vote_date = time.strftime("%Y-%m-%d"))
+     username = ""
+    (pub_key, priv_key) = key.newkeys(256)
+    crypto = rsa.encrypt(username, pub_key)
+    voto = Vote.objects.create(token = crypto, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
