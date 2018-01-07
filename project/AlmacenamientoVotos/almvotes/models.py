@@ -94,7 +94,7 @@ class User(models.Model):
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=200)
     genre = models.CharField(max_length=1)
-    edad = models.DateField()
+    fechanac = models.DateField()
     dni = models.CharField(max_length=9)
     ca = models.ForeignKey(Ca)
     user_account = models.ForeignKey('UserAccount')

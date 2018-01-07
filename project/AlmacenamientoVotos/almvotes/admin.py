@@ -14,3 +14,4 @@ admin.site.register(UserAccount)
 admin.site.register(UserAccountPerCensus)
 admin.site.register(Vote)
 admin.site.register(VoteType)
+
