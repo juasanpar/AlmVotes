@@ -113,3 +113,14 @@ def checkUser (id_user):
         
     except ObjectDoesNotExist:
         raise NoUserException("No existe un usuario con la id "+id_user)
+    
+def checkOnlyOneVotePerUser (id_poll, id_user):
+    res = False
+    poll = Poll.objects.get(id = id_poll)
+    for question in poll.questions:
+        for questionOption in question.questionOptions:
+            for optionPerVote in questionOption.optionPerVotes:
+                if optionPerVote.vote.token == id_user:
+                    res = True
+                    break
+    return res
