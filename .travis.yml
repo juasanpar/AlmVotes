@@ -1,15 +1,20 @@
 language: python
 python:
-  - "2.7"
+  - "2.7.9"
 env:
   - DJANGO_VERSION=1.8.0
+  - DJANGO-TASTYPIE_VERSION=0.14.0
+matrix:
+  allow_failures:
+    - env: DJANGO_VERSION=1.8.0
 install:
   - pip install -r requirements.txt
   - pip install -q Django==$DJANGO_VERSION
   - python setup.py -q install
+  - pip install -q tastypie==$DJANGO-TASTYPIE_VERSION
 before_script:
   - cd project/AlmacenamientoVotos/almvotes
 script:
-  - python tests.py
+  - python tests.pyc
 addons:
-  - mariadb: "10.0"
+  - mariadb: "10.0.31"
