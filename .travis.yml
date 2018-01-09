@@ -1,0 +1,17 @@
+language: python
+sudo: required
+python:
+  - "2.7.9"
+env:
+  - DJANGO_VERSION=1.8
+
+install:
+  - pip install -r requirements.txt
+  - pip install -q Django==$DJANGO_VERSION
+before-script:
+  - python manage.py 
+script:
+  - py.test ./project/AlmacenamientoVotos/almvotes/tests.py
+
+addons:
+  - mariadb: "10.0.31"
