@@ -2,19 +2,16 @@ language: python
 sudo: required
 python:
   - "2.7.9"
-env:
-  - DJANGO_VERSION=1.8
-  - DJANGO-TASTYPIE_VERSION=0.14.0
+
 install:
   - pip install -r requirements.txt
-  - pip install -q Django==$DJANGO_VERSION
-  - python setup.py -q install
-  - pip install -q tastypie==$DJANGO-TASTYPIE_VERSION
+
 before_install:
   - mysql -e 'DROP DATABASE IF EXISTS votaciones_splc'
   - mysql -e 'CREATE DATABASE IF NOT EXISTS votaciones_splc;'  
   - mysql -u root --default-character-set=utf8 votaciones_splc < despliegue/database/db_dump/01_script_create_votaciones_splc.sql
   - mysql -u root --default-character-set=utf8 votaciones_splc < despliegue/database/db_dump/02_script_populate_votaciones_splc.sql
+
 script:
   - py.tests ./project/AlmacenamientoVotos/almvotes/tests.py
 
