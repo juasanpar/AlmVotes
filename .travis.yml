@@ -8,8 +8,9 @@ env:
 install:
   - pip install -r requirements.txt
   - pip install -q Django==$DJANGO_VERSION
-  - python setup.py -q install
 
+before-script:
+  - python manage.py 
 script:
   - py.test ./project/AlmacenamientoVotos/almvotes/tests.py
 
