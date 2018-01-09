@@ -7,7 +7,7 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - py.tests ./project/AlmacenamientoVotos/almvotes/tests.py
+  - py.test ./project/AlmacenamientoVotos/almvotes/tests.py
 
 addons:
   - mariadb: "10.0.31"
