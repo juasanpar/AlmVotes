@@ -4,12 +4,10 @@ python:
   - "2.7.9"
 env:
   - DJANGO_VERSION=1.8
-  - DJANGO-TASTYPIE_VERSION=0.14.0
 
 install:
   - pip install -r requirements.txt
   - pip install -q Django==$DJANGO_VERSION
-  - pip install -q tastypie==$DJANGO-TASTYPIE_VERSION
 before-script:
   - python manage.py 
 script:
