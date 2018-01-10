@@ -8,11 +8,16 @@ env:
 install:
   - pip install -r requirements.txt
   - pip install -q Django==$DJANGO_VERSION
+  - pip install MySQL-python
+  - pip install rsa
+  - pip install django-fernet-fields
 before_script:
+  - mysql -e 'CREATE DATABASE votaciones_splc;'
   - cd project/AlmacenamientoVotos
-  - python manage.py 
+  - python manage.py syncdb --noinput
+  - cd almvotes
 script:
-  - py.test ./project/AlmacenamientoVotos/almvotes/tests.py
+  - py.test tests.py
 
 addons:
   - mariadb: "10.0.31"
