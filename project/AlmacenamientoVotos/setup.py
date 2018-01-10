@@ -15,6 +15,6 @@ setup(
     url='',
     license='MIT',
     install_requires=[
-        'Django>=1.8',
+        'Django>=1.4',
     ]
 )
