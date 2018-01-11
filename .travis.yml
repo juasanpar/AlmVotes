@@ -12,9 +12,13 @@ install:
   - pip install -q Django==$DJANGO_VERSION
   - pip install MySQL-python
   - pip install rsa  
-before_script:
+
+before_install:
   - mysql -e 'CREATE DATABASE votaciones_splc;'
   - mysql -e 'CREATE DATABASE census;'
+  - mysql -u root --default-character-set=utf8 votaciones_splc < scripts/01_script_create_votaciones_splc.sql.txt
+    - mysql -u root --default-character-set=utf8 votaciones_splc < scripts/02_script_populate_votaciones_splc.sql.txt
+before_script:
   - cd project/AlmacenamientoVotos
   - python manage.py syncdb --noinput
   - cd almvotes
