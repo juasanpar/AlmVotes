@@ -1,4 +1,4 @@
-USE `votaciones_splc`;
+﻿USE `votaciones_splc`;
 
 #UserAccount
 INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALUES (1, 'marlon86', '$P$HiBXvHdbHV9/iPQRxrZY8Llm9L61m/1', 'cleveland46@example.com', 1);
