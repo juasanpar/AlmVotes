@@ -97,7 +97,7 @@ name varchar(100) not null,
 surname varchar(200) not null,
 #M:MUJER,H:HOMBRE
 genre enum("M","H","I") not null,
-edad date not null,
+fechaNac date not null,
 dni varchar(9) not null,
 ca_id int not null,
 user_account_id int not null,
@@ -111,6 +111,7 @@ create table if not exists census(
 id int not null auto_increment,
 title varchar(100) not null,
 postalCode int,
+estado enum('Abierto','Cerrado') not null,
 ca_id int not null,
 foreign key(ca_id) references ca(id) on update no action on delete cascade,
 primary key (id)
@@ -135,6 +136,8 @@ description varchar(150),
 startDate date not null,
 endDate date not null,
 census_id int not null,
+participantes_admitidos int unsigned not null,
+votos_actuales int unsigned not null,
 foreign key(census_id) references census(id) on update no action on delete cascade,
 primary key(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;

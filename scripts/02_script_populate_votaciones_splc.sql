@@ -36,36 +36,36 @@ INSERT INTO user_account (`id`, `username`, `password`, `email`, `role_id`) VALU
 #User
 
 
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (1, 'Aleen', 'Marvin', 'M', '2014-02-01', '89098097A', 16, 1);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (2, 'Sydney', 'Upton', 'M', '2012-06-21', '94938291F', 13, 2);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (3, 'Claude', 'Towne', 'I', '2005-11-29', '67998291F', 15, 3);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (4, 'Janiya', 'Murphy', 'H', '1975-12-09', '69696291F', 14, 4);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (5, 'Alyce', 'Wehner', 'H', '1978-04-26', '12356489K', 6, 5);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (6, 'Adalberto', 'McCullough', 'I', '1987-04-06', '95876432J', 9, 6);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (7, 'Emory', 'Daniel', 'M', '1989-12-31', '79563156U', 3, 7);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (8, 'Travon', 'Hoppe', 'M', '1974-07-08', '48653215Y', 8, 8);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (9, 'Judah', 'Schulist', 'I', '2014-06-10', '79531256H', 11, 9);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (10, 'Chris', 'Grady', 'H', '2001-11-21', '38102918A', 10, 10);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (11, 'Albina', 'Greenfelder', 'I', '2015-06-27', '49282019E', 6, 11);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (12, 'Elaina', 'Batz', 'H', '2014-02-27', '59302938W', 16, 12);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (13, 'Cloyd', 'Osinski', 'I', '1998-04-26', '94030280R', 4, 13);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (14, 'Maximillian', 'Hauck', 'I', '1972-10-07', '93201803F', 4, 14);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (15, 'Jena', 'Ward', 'I', '2015-10-27', '94029302V', 5, 15);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (16, 'Evert', 'Swaniawski', 'M', '1982-05-13', '19201920D', 19, 16);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (17, 'Susanna', 'Ruecker', 'I', '2008-07-06', '49304930O', 8, 17);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (18, 'Unique', 'Ritchie', 'M', '1988-03-28', '91029103F', 4, 18);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (19, 'Albert', 'Ernser', 'I', '1999-08-28', '29102801S', 16, 19);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (20, 'Hipolito', 'Rogahn', 'I', '1981-04-19', '90293904H', 2, 20);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (21, 'Kris', 'Sipes', 'M', '1970-02-12', '90282093V', 17, 21);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (22, 'Lexus', 'Erdman', 'H', '1997-02-01', '58208305H', 10, 22);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (23, 'Christelle', 'Welch', 'H', '1978-12-09', '90403092J', 9, 23);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (24, 'Kenny', 'Schulist', 'H', '2017-05-19', '28020935G', 17, 24);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (25, 'Lula', 'Johns', 'H', '1985-02-26', '18920938B', 8, 25);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (26, 'Baby', 'Moore', 'M', '2004-06-05', '28030918H', 5, 26);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (27, 'Nils', 'Mertz', 'M', '2007-03-27', '10928049Y', 8, 27);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (28, 'Abigayle', 'Hyatt', 'H', '1981-04-22', '02093804H', 12, 28);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (29, 'Matilde', 'Ortiz', 'M', '2003-01-18', '09830290R', 13, 29);
-INSERT INTO user (`id`, `name`, `surname`, `genre`, `edad`, `dni`, `ca_id`, `user_account_id`) VALUES (30, 'Libbie', 'Metz', 'I', '1994-09-21', '39029302J', 9, 30);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (1, 'Aleen', 'Marvin', 'M', '2014-02-01', '89098097A', 16, 1);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (2, 'Sydney', 'Upton', 'M', '2012-06-21', '94938291F', 13, 2);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (3, 'Claude', 'Towne', 'I', '2005-11-29', '67998291F', 15, 3);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (4, 'Janiya', 'Murphy', 'H', '1975-12-09', '69696291F', 14, 4);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (5, 'Alyce', 'Wehner', 'H', '1978-04-26', '12356489K', 6, 5);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (6, 'Adalberto', 'McCullough', 'I', '1987-04-06', '95876432J', 9, 6);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (7, 'Emory', 'Daniel', 'M', '1989-12-31', '79563156U', 3, 7);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (8, 'Travon', 'Hoppe', 'M', '1974-07-08', '48653215Y', 8, 8);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (9, 'Judah', 'Schulist', 'I', '2014-06-10', '79531256H', 11, 9);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (10, 'Chris', 'Grady', 'H', '2001-11-21', '38102918A', 10, 10);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (11, 'Albina', 'Greenfelder', 'I', '2015-06-27', '49282019E', 6, 11);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (12, 'Elaina', 'Batz', 'H', '2014-02-27', '59302938W', 16, 12);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (13, 'Cloyd', 'Osinski', 'I', '1998-04-26', '94030280R', 4, 13);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (14, 'Maximillian', 'Hauck', 'I', '1972-10-07', '93201803F', 4, 14);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (15, 'Jena', 'Ward', 'I', '2015-10-27', '94029302V', 5, 15);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (16, 'Evert', 'Swaniawski', 'M', '1982-05-13', '19201920D', 19, 16);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (17, 'Susanna', 'Ruecker', 'I', '2008-07-06', '49304930O', 8, 17);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (18, 'Unique', 'Ritchie', 'M', '1988-03-28', '91029103F', 4, 18);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (19, 'Albert', 'Ernser', 'I', '1999-08-28', '29102801S', 16, 19);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (20, 'Hipolito', 'Rogahn', 'I', '1981-04-19', '90293904H', 2, 20);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (21, 'Kris', 'Sipes', 'M', '1970-02-12', '90282093V', 17, 21);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (22, 'Lexus', 'Erdman', 'H', '1997-02-01', '58208305H', 10, 22);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (23, 'Christelle', 'Welch', 'H', '1978-12-09', '90403092J', 9, 23);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (24, 'Kenny', 'Schulist', 'H', '2017-05-19', '28020935G', 17, 24);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (25, 'Lula', 'Johns', 'H', '1985-02-26', '18920938B', 8, 25);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (26, 'Baby', 'Moore', 'M', '2004-06-05', '28030918H', 5, 26);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (27, 'Nils', 'Mertz', 'M', '2007-03-27', '10928049Y', 8, 27);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (28, 'Abigayle', 'Hyatt', 'H', '1981-04-22', '02093804H', 12, 28);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (29, 'Matilde', 'Ortiz', 'M', '2003-01-18', '09830290R', 13, 29);
+INSERT INTO user (`id`, `name`, `surname`, `genre`, `fechaNac`, `dni`, `ca_id`, `user_account_id`) VALUES (30, 'Libbie', 'Metz', 'I', '1994-09-21', '39029302J', 9, 30);
 
 
 #Census
