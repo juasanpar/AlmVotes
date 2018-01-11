@@ -14,6 +14,7 @@ install:
   - pip install rsa  
 before_script:
   - mysql -e 'CREATE DATABASE votaciones_splc;'
+  - mysql -e 'CREATE DATABASE votaciones_splc.census;'
   - cd project/AlmacenamientoVotos
   - python manage.py syncdb --noinput
   - cd almvotes
