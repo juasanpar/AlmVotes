@@ -3,21 +3,38 @@ sudo: required
 python:
   - "2.7.9"
 env:
+<<<<<<< HEAD
   - DJANGO_VERSION=1.8 DJANGO_SETTINGS_MODULE="almvotos.settings"
+=======
+  - DJANGO_VERSION=1.4 DJANGO_SETTINGS_MODULE="almvotos.settings"
+services:
+  - mysql
+>>>>>>> b126daaeda7facb8dca83cc6db0ba6bee5356669
 
 install:
   - pip install -r requirements.txt
   - pip install -q Django==$DJANGO_VERSION
   - pip install MySQL-python
+<<<<<<< HEAD
   - pip install rsa
   - pip install django-fernet-fields
 before_script:
   - mysql -e 'CREATE DATABASE votaciones_splc;'
+=======
+  - pip install rsa  
+before_script:
+  - mysql -e 'CREATE DATABASE votaciones_splc;'
+  - mysql -e 'CREATE DATABASE census;'
+>>>>>>> b126daaeda7facb8dca83cc6db0ba6bee5356669
   - cd project/AlmacenamientoVotos
   - python manage.py syncdb --noinput
   - cd almvotes
 script:
+<<<<<<< HEAD
   - py.test tests.py
 
 addons:
   - mariadb: "10.0.31"
+=======
+  - py.test tests.py
+>>>>>>> b126daaeda7facb8dca83cc6db0ba6bee5356669
