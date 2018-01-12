@@ -3,15 +3,26 @@ sudo: required
 python:
   - "2.7.9"
 env:
-  - DJANGO_VERSION=1.8
+  - DJANGO_VERSION=1.4 DJANGO_SETTINGS_MODULE="almvotos.settings"
+services:
+  - mysql
 
 install:
   - pip install -r requirements.txt
   - pip install -q Django==$DJANGO_VERSION
-before-script:
-  - python manage.py 
-script:
-  - py.test ./project/AlmacenamientoVotos/almvotes/tests.py
+  - pip install MySQL-python
+  - pip install rsa  
 
-addons:
-  - mariadb: "10.0.31"
+before_install:
+  - mysql -e 'DROP DATABASE IF EXISTS votaciones_splc'
+  - mysql -e 'CREATE DATABASE votaciones_splc;'
+  - mysql -u root --default-character-set=utf8 votaciones_splc < scripts/01_script_create_votaciones_splc.sql
+  - mysql -u root --default-character-set=utf8 votaciones_splc < scripts/02_script_populate_votaciones_splc.sql
+
+before_script:
+  - cd project/AlmacenamientoVotos
+  - python manage.py syncdb --noinput
+  - cd almvotes
+
+script:
+  - py.test tests.py

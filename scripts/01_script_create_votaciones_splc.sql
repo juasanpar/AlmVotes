@@ -1,4 +1,4 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+锘縎ET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -59,7 +59,7 @@ foreign key(user_account_id) references user_account(id) on update no action on 
 
 
 # ************************************************************
-# Comunidades Aut髇omas.
+# Comunidades Aut贸nomas.
 # ------------------------------------------------------------
 
 CREATE TABLE `ca` (
@@ -70,22 +70,22 @@ CREATE TABLE `ca` (
 
 INSERT INTO `ca` (`id`, `name`)
 VALUES
-	(1,'Andaluc韆'),
-	(2,'Arag髇'),
+	(1,'Andaluc铆a'),
+	(2,'Arag贸n'),
 	(3,'Asturias, Principado de'),
 	(4,'Balears, Illes'),
 	(5,'Canarias'),
 	(6,'Cantabria'),
-	(7,'Castilla y Le髇'),
+	(7,'Castilla y Le贸n'),
 	(8,'Castilla - La Mancha'),
 	(9,'Catalunya'),
 	(10,'Comunitat Valenciana'),
 	(11,'Extremadura'),
 	(12,'Galicia'),
 	(13,'Madrid, Comunidad de'),
-	(14,'Murcia, Regi髇 de'),
+	(14,'Murcia, Regi贸n de'),
 	(15,'Navarra, Comunidad Foral de'),
-	(16,'Pa韘 Vasco'),
+	(16,'Pa铆s Vasco'),
 	(17,'Rioja, La'),
 	(18,'Ceuta'),
 	(19,'Melilla');
@@ -97,7 +97,7 @@ name varchar(100) not null,
 surname varchar(200) not null,
 #M:MUJER,H:HOMBRE
 genre enum("M","H","I") not null,
-edad date not null,
+fechaNac date not null,
 dni varchar(9) not null,
 ca_id int not null,
 user_account_id int not null,
@@ -111,6 +111,7 @@ create table if not exists census(
 id int not null auto_increment,
 title varchar(100) not null,
 postalCode int,
+estado enum('Abierto','Cerrado') not null,
 ca_id int not null,
 foreign key(ca_id) references ca(id) on update no action on delete cascade,
 primary key (id)
@@ -135,6 +136,8 @@ description varchar(150),
 startDate date not null,
 endDate date not null,
 census_id int not null,
+participantes_admitidos int unsigned not null,
+votos_actuales int unsigned not null,
 foreign key(census_id) references census(id) on update no action on delete cascade,
 primary key(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
