@@ -6,15 +6,15 @@ README = open(os.path.join(here, 'README.rst')).read()
 
 setup(
     name='almvotes',
-    version='0.1',
+    version='1.0',
     packages=['almvotes', 'almvotos'],
     description='Libreria para el almacenamiento de los votos en la BD',
     long_description=README,
     author='Equipo almacenamiento',
     author_email='juasanpar@hotmail.com',
-    url='',
+    url='https://github.com/Proyecto-EGC-G1/Almacenamiento-Votos-EGC-G1/tree/master/project/AlmacenamientoVotos',
     license='MIT',
     install_requires=[
-        'Django>=1.8',
+        'Django>=1.4',
     ]
 )
