@@ -6,3 +6,6 @@ class NoQuestionOptionException(Exception):
 
 class NoUserException(Exception):
     pass
+
+class MoreThanOneVoteException(Exception):
+    pass
