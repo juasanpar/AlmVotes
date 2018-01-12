@@ -15,7 +15,7 @@ class TestInsertMethods(unittest.TestCase):
         testUser = UserAccount.objects.get(id = 1)
         testQuestionOptions = "12&56"
         testInsert = insertVoteWeb(testPoll.id, testUser.id, testQuestionOptions)
-        self.assertIsNotNone(testInsert, "Error en la insercion del voto")
+        self.assertIsNone(testInsert, "Error en la insercion del voto")
         Vote.objects.all().delete()
         
     def testCheckDate(self):
