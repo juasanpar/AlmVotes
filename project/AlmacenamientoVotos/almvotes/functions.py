@@ -1,11 +1,10 @@
 #encoding: utf-8
 
 from models import *
-from exceptions import PollDateException, NoQuestionOptionException, NoUserException
+from exceptions import PollDateException, NoQuestionOptionException, NoUserException, MoreThanOneVoteException
 from django.core.exceptions import ObjectDoesNotExist
 import time
 import datetime
-from rsa import encrypt, key, common
 
 priv_keys = {}
 
@@ -14,6 +13,8 @@ def insertVoteWeb(id_poll, id_user, id_questionOption):
     checkDate(id_poll)
     checkUser(id_user)
     checkQuestionOp(id_questionOption)
+    checkQuestionOpInPoll(id_poll, id_questionOption)
+    checkOnlyOneVotePerUser(id_poll, id_user)
     
     questionOptions= id_questionOption.split("&");
     
@@ -27,55 +28,60 @@ def insertVoteWeb(id_poll, id_user, id_questionOption):
     
     for decision in questionOptions:
         
-        questionOp = QuestionOption.objects.filter(id = decision).get()
+        questionOp = QuestionOption.objects.get(id = decision)
         OptionPerVote.objects.create(vote = voto, question_option = questionOp)
                         
-    return True
+    return voto
 
 def insertVoteSlack(id_poll, id_user, id_questionOption):
     
     checkDate(id_poll)
     checkUser(id_user)
     checkQuestionOp(id_questionOption)
+    checkQuestionOpInPoll(id_poll, id_questionOption)
+    checkOnlyOneVotePerUser(id_poll, id_user)
     
     questionOptions= id_questionOption.split("&");
     
     userAccount = User.objects.get(id = id_user).user_account
-    username = userAccount.username    
+    username = userAccount.username
+    
     voto = Vote.objects.create(token = username, vote_type = VoteType.objects.filter(id = 2).get(), vote_date = time.strftime("%Y-%m-%d"))
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
     
     for decision in questionOptions:
-
-        questionOp = QuestionOption.objects.filter(id = decision).get()
+        
+        questionOp = QuestionOption.objects.get(id = decision)
         OptionPerVote.objects.create(vote = voto, question_option = questionOp)
                         
-    return "Voto insertado con exito"
+    return voto
 
 def insertVoteTelegram(id_poll, id_user, id_questionOption):
     
     checkDate(id_poll)
     checkUser(id_user)
     checkQuestionOp(id_questionOption)
+    checkQuestionOpInPoll(id_poll, id_questionOption)
+    checkOnlyOneVotePerUser(id_poll, id_user)
     
     questionOptions= id_questionOption.split("&");
     
     userAccount = User.objects.get(id = id_user).user_account
-    username = userAccount.username    
-
+    username = userAccount.username
+    
     voto = Vote.objects.create(token = username, vote_type = VoteType.objects.filter(id = 3).get(), vote_date = time.strftime("%Y-%m-%d"))
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
     
     for decision in questionOptions:
-
-        questionOp = QuestionOption.objects.filter(id = decision).get()
+        
+        questionOp = QuestionOption.objects.get(id = decision)
         OptionPerVote.objects.create(vote = voto, question_option = questionOp)
-                    
-    return "Voto insertado con exito"
+                        
+    return voto
 
 def checkDate(id_poll):
     
@@ -114,5 +120,28 @@ def checkUser (id_user):
     except ObjectDoesNotExist:
         raise NoUserException("No existe un usuario con la id "+id_user)
     
+def checkOnlyOneVotePerUser (id_poll, id_user):
+    username = UserAccount.objects.get(id = id_user).username
+    pollT = Poll.objects.get(id = id_poll)
+    questions = Question.objects.filter(poll = pollT)
     
+    for questionT in questions:
+        questionOptions = QuestionOption.objects.filter(question = questionT)
+        
+        for questionOptionT in questionOptions:
+            optionPerVotes = OptionPerVote.objects.filter(question_option = questionOptionT)
+
+            for optionPerVote in optionPerVotes:
+                if optionPerVote.vote.token == username:
+                    raise MoreThanOneVoteException("El usuario ya ha participado en esta votacion")
+                
+def checkQuestionOpInPoll(id_poll, id_questionOption):
+    questionOptions= id_questionOption.split("&");
+
+    for option in questionOptions:
+        qo = QuestionOption.objects.filter(id = option).get().question
+        
+        if qo.poll_id != id_poll:
+            raise NoQuestionOptionException("las opciones elegidas no se encuentran en la votacion")
+            
     
