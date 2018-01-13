@@ -5,8 +5,9 @@ from exceptions import PollDateException, NoQuestionOptionException, NoUserExcep
 from django.core.exceptions import ObjectDoesNotExist
 import time
 import datetime
+import rsa
 
-priv_keys = {}
+keys = {}
 
 def insertVoteWeb(id_poll, id_user, id_questionOption):
     
@@ -18,10 +19,17 @@ def insertVoteWeb(id_poll, id_user, id_questionOption):
     
     questionOptions= id_questionOption.split("&");
     
-    userAccount = User.objects.get(id = id_user).user_account
-    username = userAccount.username
-    
+    username = UserAccount.objects.get(id = id_user).username
+
     voto = Vote.objects.create(token = username, vote_type = VoteType.objects.filter(id = 1).get(), vote_date = time.strftime("%Y-%m-%d"))
+    
+    (pub_key, priv_key) = rsa.newkeys(256)
+    crypto = rsa.encrypt(str(username), pub_key)
+    keys[voto] = [crypto, priv_key]
+
+    voto.token = crypto
+    voto.save()
+        
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
@@ -43,10 +51,17 @@ def insertVoteSlack(id_poll, id_user, id_questionOption):
     
     questionOptions= id_questionOption.split("&");
     
-    userAccount = User.objects.get(id = id_user).user_account
-    username = userAccount.username
-    
+    username = UserAccount.objects.get(id = id_user).username
+
     voto = Vote.objects.create(token = username, vote_type = VoteType.objects.filter(id = 2).get(), vote_date = time.strftime("%Y-%m-%d"))
+    
+    (pub_key, priv_key) = rsa.newkeys(256)
+    crypto = rsa.encrypt(str(username), pub_key)
+    keys[voto] = [crypto, priv_key]
+
+    voto.token = crypto
+    voto.save()
+        
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
@@ -68,10 +83,17 @@ def insertVoteTelegram(id_poll, id_user, id_questionOption):
     
     questionOptions= id_questionOption.split("&");
     
-    userAccount = User.objects.get(id = id_user).user_account
-    username = userAccount.username
-    
+    username = UserAccount.objects.get(id = id_user).username
+
     voto = Vote.objects.create(token = username, vote_type = VoteType.objects.filter(id = 3).get(), vote_date = time.strftime("%Y-%m-%d"))
+    
+    (pub_key, priv_key) = rsa.newkeys(256)
+    crypto = rsa.encrypt(str(username), pub_key)
+    keys[voto] = [crypto, priv_key]
+
+    voto.token = crypto
+    voto.save()
+        
     poll = Poll.objects.get(id = id_poll)
     poll.votos_actuales += 1
     poll.save()
@@ -132,11 +154,13 @@ def checkOnlyOneVotePerUser (id_poll, id_user):
             optionPerVotes = OptionPerVote.objects.filter(question_option = questionOptionT)
 
             for optionPerVote in optionPerVotes:
-                if optionPerVote.vote.token == username:
+                token = rsa.decrypt(keys[optionPerVote.vote][0], keys[optionPerVote.vote][1])
+
+                if token == username:
                     raise MoreThanOneVoteException("El usuario ya ha participado en esta votacion")
                 
 def checkQuestionOpInPoll(id_poll, id_questionOption):
-    questionOptions= id_questionOption.split("&");
+    questionOptions = id_questionOption.split("&");
 
     for option in questionOptions:
         qo = QuestionOption.objects.filter(id = option).get().question
