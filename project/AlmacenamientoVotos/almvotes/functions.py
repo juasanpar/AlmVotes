@@ -27,7 +27,7 @@ def insertVoteWeb(id_poll, id_user, id_questionOption):
     crypto = rsa.encrypt(str(username), pub_key)
     keys[voto] = [crypto, priv_key]
 
-    voto.token = crypto
+    voto.token = crypto.decode('utf8', 'ignore')
     voto.save()
         
     poll = Poll.objects.get(id = id_poll)
@@ -59,7 +59,7 @@ def insertVoteSlack(id_poll, id_user, id_questionOption):
     crypto = rsa.encrypt(str(username), pub_key)
     keys[voto] = [crypto, priv_key]
 
-    voto.token = crypto
+    voto.token = crypto.decode('utf8', 'ignore')
     voto.save()
         
     poll = Poll.objects.get(id = id_poll)
@@ -91,7 +91,7 @@ def insertVoteTelegram(id_poll, id_user, id_questionOption):
     crypto = rsa.encrypt(str(username), pub_key)
     keys[voto] = [crypto, priv_key]
 
-    voto.token = crypto
+    voto.token = crypto.decode('utf8', 'ignore')
     voto.save()
         
     poll = Poll.objects.get(id = id_poll)
