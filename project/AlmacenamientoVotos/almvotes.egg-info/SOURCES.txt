@@ -1,4 +1,5 @@
 README.rst
+setup.py
 almvotes/__init__.py
 almvotes/admin.py
 almvotes/exceptions.py
