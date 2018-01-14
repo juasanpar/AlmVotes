@@ -12,106 +12,125 @@ from __future__ import unicode_literals
 from django.db import models
 
 class Ca(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=100L)
+    name = models.CharField(max_length=100)
+
     class Meta:
+        managed = False
         db_table = 'ca'
 
+
 class Census(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=100L)
-    postalcode = models.IntegerField(null=True, db_column='postalCode', blank=True) # Field name made lowercase.
-    estado = models.CharField(max_length=7L)
+    title = models.CharField(max_length=100)
+    postalcode = models.IntegerField(db_column='postalCode', blank=True, null=True)  # Field name made lowercase.
+    estado = models.CharField(max_length=7)
     ca = models.ForeignKey(Ca)
+
     class Meta:
+        managed = False
         db_table = 'census'
 
+
 class Cookie(models.Model):
-    number_id = models.CharField(max_length=40L, primary_key=True)
+    number_id = models.CharField(primary_key=True, max_length=40)
     user_account = models.ForeignKey('UserAccount')
+
     class Meta:
+        managed = False
         db_table = 'cookie'
 
 class OptionPerVote(models.Model):
-    id = models.IntegerField(primary_key=True)
     vote = models.ForeignKey('Vote')
     question_option = models.ForeignKey('QuestionOption')
+
     class Meta:
+        managed = False
         db_table = 'option_per_vote'
 
+
 class Poll(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=50L)
-    description = models.CharField(max_length=150L, blank=True)
-    startdate = models.DateField(db_column='startDate') # Field name made lowercase.
-    enddate = models.DateField(db_column='endDate') # Field name made lowercase.
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=150, blank=True, null=True)
+    startdate = models.DateField(db_column='startDate')  # Field name made lowercase.
+    enddate = models.DateField(db_column='endDate')  # Field name made lowercase.
     census = models.ForeignKey(Census)
     participantes_admitidos = models.IntegerField()
     votos_actuales = models.IntegerField()
+
     class Meta:
+        managed = False
         db_table = 'poll'
 
+
 class Question(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=50L)
-    description = models.CharField(max_length=150L, blank=True)
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=150, blank=True, null=True)
     optional = models.IntegerField()
     multiple = models.IntegerField()
     poll = models.ForeignKey(Poll)
+
     class Meta:
+        managed = False
         db_table = 'question'
 
+
 class QuestionOption(models.Model):
-    id = models.IntegerField(primary_key=True)
-    description = models.CharField(max_length=150L, blank=True)
+    description = models.CharField(max_length=150, blank=True, null=True)
     question = models.ForeignKey(Question)
+
     class Meta:
+        managed = False
         db_table = 'question_option'
 
 class Role(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=10L)
+    name = models.CharField(max_length=10)
+
     class Meta:
+        managed = False
         db_table = 'role'
 
 class User(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=100L)
-    surname = models.CharField(max_length=200L)
-    genre = models.CharField(max_length=1L)
-    edad = models.DateField()
-    dni = models.CharField(max_length=9L)
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=200)
+    genre = models.CharField(max_length=1)
+    fechanac = models.DateField()
+    dni = models.CharField(max_length=9)
     ca = models.ForeignKey(Ca)
     user_account = models.ForeignKey('UserAccount')
+
     class Meta:
+        managed = False
         db_table = 'user'
 
 class UserAccount(models.Model):
-    id = models.IntegerField(primary_key=True)
-    username = models.CharField(max_length=50L, unique=True)
-    password = models.CharField(max_length=50L)
-    email = models.CharField(max_length=100L)
+    username = models.CharField(unique=True, max_length=50)
+    password = models.CharField(max_length=50)
+    email = models.CharField(max_length=100)
     role = models.ForeignKey(Role)
+
     class Meta:
+        managed = False
         db_table = 'user_account'
 
 class UserAccountPerCensus(models.Model):
-    id = models.IntegerField(primary_key=True)
     census = models.ForeignKey(Census)
     user_account = models.ForeignKey(UserAccount)
+
     class Meta:
+        managed = False
         db_table = 'user_account_per_census'
 
 class Vote(models.Model):
-    id = models.IntegerField(primary_key=True)
-    token = models.CharField(max_length=150L)
+    token = models.CharField(max_length=150)
     vote_type = models.ForeignKey('VoteType')
     vote_date = models.DateField()
+
     class Meta:
+        managed = False
         db_table = 'vote'
 
 class VoteType(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=10L)
+    name = models.CharField(max_length=10)
+
     class Meta:
+        managed = False
         db_table = 'vote_type'
