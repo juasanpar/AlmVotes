@@ -3,7 +3,7 @@ sudo: required
 python:
   - "2.7.9"
 env:
-  - DJANGO_VERSION=1.8 DJANGO_SETTINGS_MODULE="almvotos.settings"
+  - DJANGO_VERSION=1.4 DJANGO_SETTINGS_MODULE="almvotos.settings"
 services:
   - mysql
 
