@@ -81,14 +81,12 @@ class QuestionOption(models.Model):
         managed = False
         db_table = 'question_option'
 
-
 class Role(models.Model):
     name = models.CharField(max_length=10)
 
     class Meta:
         managed = False
         db_table = 'role'
-
 
 class User(models.Model):
     name = models.CharField(max_length=100)
@@ -103,7 +101,6 @@ class User(models.Model):
         managed = False
         db_table = 'user'
 
-
 class UserAccount(models.Model):
     username = models.CharField(unique=True, max_length=50)
     password = models.CharField(max_length=50)
@@ -114,7 +111,6 @@ class UserAccount(models.Model):
         managed = False
         db_table = 'user_account'
 
-
 class UserAccountPerCensus(models.Model):
     census = models.ForeignKey(Census)
     user_account = models.ForeignKey(UserAccount)
@@ -122,7 +118,6 @@ class UserAccountPerCensus(models.Model):
     class Meta:
         managed = False
         db_table = 'user_account_per_census'
-
 
 class Vote(models.Model):
     token = models.CharField(max_length=150)
@@ -132,7 +127,6 @@ class Vote(models.Model):
     class Meta:
         managed = False
         db_table = 'vote'
-
 
 class VoteType(models.Model):
     name = models.CharField(max_length=10)
