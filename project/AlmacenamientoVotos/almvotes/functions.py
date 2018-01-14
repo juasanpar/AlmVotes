@@ -9,6 +9,7 @@ import rsa
 
 keys = {}
 
+#Esta función se encara de insertar un voto en el sistema a traves de web
 def insertVoteWeb(id_poll, id_user, id_questionOption):
 
     checkDate(id_poll)
@@ -41,6 +42,7 @@ def insertVoteWeb(id_poll, id_user, id_questionOption):
                         
     return voto
 
+#Esta función se encara de insertar un voto en el sistema a traves de slack
 def insertVoteSlack(id_poll, id_user, id_questionOption):
     
     checkDate(id_poll)
@@ -73,6 +75,7 @@ def insertVoteSlack(id_poll, id_user, id_questionOption):
                         
     return voto
 
+#Esta función se encara de insertar un voto en el sistema a traves de telegram
 def insertVoteTelegram(id_poll, id_user, id_questionOption):
     
     checkDate(id_poll)
@@ -105,6 +108,7 @@ def insertVoteTelegram(id_poll, id_user, id_questionOption):
                         
     return voto
 
+#Esta función se encara de comprobar si la fecha de una votacion es correcta
 def checkDate(id_poll):
     
     poll = Poll.objects.filter(id=id_poll).get()
@@ -122,6 +126,7 @@ def checkDate(id_poll):
     if (checkdate == False):
         raise PollDateException ("El voto no es valido, la votacion no se encuentra activa en la fecha actual.")
         
+#Esta función se encara de comprobar si el question de una votacion es correcto
 def checkQuestionOp(id_questionOption):
     questionOptions= id_questionOption.split("&");
     
@@ -135,13 +140,15 @@ def checkQuestionOp(id_questionOption):
         except ObjectDoesNotExist:
             raise NoQuestionOptionException("La id de questionOption "+decision+" no existe")
 
+#Esta función se encara de comprobar si el usuario de una votacion es correcto
 def checkUser (id_user):
     try:
         User.objects.filter(id = id_user).get()
         
     except ObjectDoesNotExist:
         raise NoUserException("No existe un usuario con la id "+id_user)
-    
+
+#Esta función se encara de comprobar si el usuario de una votacion no ha votado mas veces en el mismo
 def checkOnlyOneVotePerUser (id_poll, id_user):
     username = UserAccount.objects.get(id = id_user).username
     pollT = Poll.objects.get(id = id_poll)
@@ -158,7 +165,8 @@ def checkOnlyOneVotePerUser (id_poll, id_user):
 
                 if token == username:
                     raise MoreThanOneVoteException("El usuario ya ha participado en esta votacion")
-                
+      
+#Esta función se encara de comprobar si el question pertenece al pool         
 def checkQuestionOpInPoll(id_poll, id_questionOption):
     questionOptions = id_questionOption.split("&");
 
