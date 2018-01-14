@@ -21,7 +21,7 @@ before_install:
 
 before_script:
   - cd project/AlmacenamientoVotos
-  - python manage.py syncdb --noinput
+  - python manage.py syncdb
   - cd almvotes
 
 script:
