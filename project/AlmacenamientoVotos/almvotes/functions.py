@@ -6,12 +6,11 @@ from django.core.exceptions import ObjectDoesNotExist
 import time
 import datetime
 import rsa
-import django
 
 keys = {}
 
 def insertVoteWeb(id_poll, id_user, id_questionOption):
-    django.setup()
+
     checkDate(id_poll)
     checkUser(id_user)
     checkQuestionOp(id_questionOption)
