@@ -12,7 +12,7 @@ class TestInsertMethods(unittest.TestCase):
         testPoll = Poll.objects.get(id = 1) 
         testPoll.startdate = datetime.datetime.strptime("2010-2-12", '%Y-%m-%d').date()
         testPoll.save() 
-        testUser = UserAccount.objects.get(id = 1)
+        testUser = UserAccount.objects.get(id = 7)
         testQuestionOptions = "12&56"
         testInsert = insertVoteWeb(testPoll.id, testUser.id, testQuestionOptions)
         self.assertIsNotNone(testInsert, "Error en la insercion del voto")
@@ -36,8 +36,8 @@ class TestInsertMethods(unittest.TestCase):
         testPoll.startdate = datetime.datetime.strptime("2010-2-12", '%Y-%m-%d').date()
         testPoll.save() 
         
-        testUser1 = UserAccount.objects.get(id = 1)
-        testUser2 = UserAccount.objects.get(id = 2)
+        testUser1 = UserAccount.objects.get(id = 7)
+        testUser2 = UserAccount.objects.get(id = 7)
         
         testQuestionOptions = "12&56"
         insertVoteWeb(testPoll.id, testUser1.id, testQuestionOptions)
@@ -56,7 +56,7 @@ class TestInsertMethods(unittest.TestCase):
         testPoll.startdate = datetime.datetime.strptime("2010-2-12", '%Y-%m-%d').date()
         testPoll.save()
                
-        testUser = UserAccount.objects.get(id = 3)
+        testUser = UserAccount.objects.get(id = 7)
         testQuestionOptions = "12&56"
         insertVoteWeb(testPoll.id, testUser.id, testQuestionOptions)
         self.assertRaises(MoreThanOneVoteException, checkOnlyOneVotePerUser, testPoll.id, testUser.id)
