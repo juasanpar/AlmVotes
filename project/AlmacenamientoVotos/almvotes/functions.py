@@ -1,10 +1,10 @@
 #encoding: utf-8
 
+from datetime import datetime
 from models import *
-from exceptions import PollDateException, NoQuestionOptionException, NoUserException, MoreThanOneVoteException
+from exceptions import PollDateException, NoQuestionOptionException, NoUserException, MoreThanOneVoteException, UserAgeException
 from django.core.exceptions import ObjectDoesNotExist
 import time
-import datetime
 import rsa
 
 keys = {}
@@ -17,6 +17,7 @@ def insertVoteWeb(id_poll, id_user, id_questionOption):
     checkQuestionOp(id_questionOption)
     checkQuestionOpInPoll(id_poll, id_questionOption)
     checkOnlyOneVotePerUser(id_poll, id_user)
+    checkAge(id_user)
     
     questionOptions= id_questionOption.split("&");
     
@@ -50,6 +51,7 @@ def insertVoteSlack(id_poll, id_user, id_questionOption):
     checkQuestionOp(id_questionOption)
     checkQuestionOpInPoll(id_poll, id_questionOption)
     checkOnlyOneVotePerUser(id_poll, id_user)
+    checkAge(id_user)
     
     questionOptions= id_questionOption.split("&");
     
@@ -83,6 +85,7 @@ def insertVoteTelegram(id_poll, id_user, id_questionOption):
     checkQuestionOp(id_questionOption)
     checkQuestionOpInPoll(id_poll, id_questionOption)
     checkOnlyOneVotePerUser(id_poll, id_user)
+    checkAge(id_user)
     
     questionOptions= id_questionOption.split("&");
     
@@ -118,7 +121,7 @@ def checkDate(id_poll):
     enddate = poll.enddate
     
     datevote = time.strftime("%d/%m/%Y")
-    date = datetime.datetime.strptime(datevote, '%d/%m/%Y').date()
+    date = datetime.strptime(datevote, '%d/%m/%Y').date()
 
     if date > startdate and date < enddate:
         checkdate = True 
@@ -176,4 +179,15 @@ def checkQuestionOpInPoll(id_poll, id_questionOption):
         if qo.poll_id != id_poll:
             raise NoQuestionOptionException("las opciones elegidas no se encuentran en la votacion")
             
+#Esta función se encarga de comprobar si el usuario es menor de edad
+def checkAge(id_user):
+    
+    fechaActual = datetime.now()
+    fechanac = User.objects.get(id = id_user).fechanac
+    edad = (fechaActual.date() - fechanac).days/365
+    
+    if (edad < 18):
+        raise UserAgeException("El usuario es menor de edad")
+    
+    return edad
     

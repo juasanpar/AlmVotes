@@ -9,3 +9,6 @@ class NoUserException(Exception):
 
 class MoreThanOneVoteException(Exception):
     pass
+
+class UserAgeException(Exception):
+    pass
