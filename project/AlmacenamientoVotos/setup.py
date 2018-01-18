@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 
 setup(
     name='almvotes',
-    version='1.1',
+    version='1.2',
     packages=['almvotes', 'almvotos'],
     description='Libreria para el almacenamiento de los votos en la BD',
     long_description=README,

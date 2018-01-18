@@ -1,8 +1,8 @@
 #encoding:utf-8
-from functions import insertVoteWeb, checkDate, checkQuestionOp, checkOnlyOneVotePerUser, checkQuestionOpInPoll
+from functions import insertVoteWeb, checkDate, checkQuestionOp, checkOnlyOneVotePerUser, checkQuestionOpInPoll, checkAge
 import unittest
 import datetime
-from exceptions import PollDateException, NoQuestionOptionException, MoreThanOneVoteException
+from exceptions import PollDateException, NoQuestionOptionException, MoreThanOneVoteException, UserAgeException
 from models import Poll, UserAccount, Vote
 
 class TestInsertMethods(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestInsertMethods(unittest.TestCase):
         testPoll = Poll.objects.get(id = 1) 
         testPoll.startdate = datetime.datetime.strptime("2010-2-12", '%Y-%m-%d').date()
         testPoll.save() 
-        testUser = UserAccount.objects.get(id = 1)
+        testUser = UserAccount.objects.get(id = 4)
         testQuestionOptions = "12&56"
         testInsert = insertVoteWeb(testPoll.id, testUser.id, testQuestionOptions)
         self.assertIsNotNone(testInsert, "Error en la insercion del voto")
@@ -36,8 +36,8 @@ class TestInsertMethods(unittest.TestCase):
         testPoll.startdate = datetime.datetime.strptime("2010-2-12", '%Y-%m-%d').date()
         testPoll.save() 
         
-        testUser1 = UserAccount.objects.get(id = 1)
-        testUser2 = UserAccount.objects.get(id = 2)
+        testUser1 = UserAccount.objects.get(id = 4)
+        testUser2 = UserAccount.objects.get(id = 5)
         
         testQuestionOptions = "12&56"
         insertVoteWeb(testPoll.id, testUser1.id, testQuestionOptions)
@@ -56,14 +56,14 @@ class TestInsertMethods(unittest.TestCase):
         testPoll.startdate = datetime.datetime.strptime("2010-2-12", '%Y-%m-%d').date()
         testPoll.save()
                
-        testUser = UserAccount.objects.get(id = 3)
+        testUser = UserAccount.objects.get(id = 4)
         testQuestionOptions = "12&56"
         insertVoteWeb(testPoll.id, testUser.id, testQuestionOptions)
         self.assertRaises(MoreThanOneVoteException, checkOnlyOneVotePerUser, testPoll.id, testUser.id)
         Vote.objects.all().delete()
 
     def testAge(self):
-        self.assertRaises(UserAgeException, checkAge, 4)
+        self.assertRaises(UserAgeException, checkAge, 3)
         self.assertEqual(checkAge(4), 42, "Error, la edad del usuario no es la esperada")
         
 if __name__ == '__main__':
