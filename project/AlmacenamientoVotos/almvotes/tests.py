@@ -61,6 +61,10 @@ class TestInsertMethods(unittest.TestCase):
         insertVoteWeb(testPoll.id, testUser.id, testQuestionOptions)
         self.assertRaises(MoreThanOneVoteException, checkOnlyOneVotePerUser, testPoll.id, testUser.id)
         Vote.objects.all().delete()
+
+    def testAge(self):
+        self.assertRaises(UserAgeException, checkAge, 4)
+        self.assertEqual(checkAge(4), 42, "Error, la edad del usuario no es la esperada")
         
 if __name__ == '__main__':
     unittest.main()    
